@@ -51,9 +51,9 @@ services:
       sh -c "
         while :
         do
-          sleep 60
           poetry run python manage.py makemigrations main && poetry run python manage.py migrate
           poetry run python manage.py runcrons --silent
+          sleep 60
         done
       "
     environment:
@@ -62,6 +62,7 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=XyPq9#zW5tRv3uK
       - POSTGRES_PORT=5432
+      - ghiblikey=h2R6f8Gp#QxYsJt
 
 
 volumes:

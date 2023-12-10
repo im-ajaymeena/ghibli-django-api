@@ -23,7 +23,7 @@ COPY app .
 
 FROM base as migration
 
-CMD poetry run python manage.py makemigrations &&\
+CMD poetry run python manage.py makemigrations main &&\
     poetry run python manage.py migrate
 
 FROM base as development

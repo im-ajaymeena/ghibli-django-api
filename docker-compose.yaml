@@ -34,6 +34,34 @@ services:
     - '0.0.0.0:5432:5432'
     volumes:
     - postgres_vol1:/var/lib/postgresql/data
+  
+
+  cron_job:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    networks:
+      - proxynet
+    volumes:
+      - ./app:/app
+    depends_on:
+      - db
+    command: |
+      sh -c "
+        while :
+        do
+          sleep 60
+          poetry run python manage.py makemigrations main && poetry run python manage.py migrate
+          poetry run python manage.py runcrons --silent
+        done
+      "
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_NAME=default
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=XyPq9#zW5tRv3uK
+      - POSTGRES_PORT=5432
 
 
 volumes:

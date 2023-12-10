@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "ghibli-django-api"
+version = "0.1.0"
+description = "API to access ghibli films"
+authors = ["Ajay Meena <ajaymeenajp2020@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^5.0"
+djangorestframework = "^3.14.0"
+psycopg2 = "^2.9.9"
+django-cron = "^0.6.0"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

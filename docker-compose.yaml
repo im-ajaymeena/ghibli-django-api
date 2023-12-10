@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    networks:
+      - proxynet
+    volumes:
+      - ./app:/app
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_NAME=default
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=XyPq9#zW5tRv3uK
+      - POSTGRES_PORT=5432
+      - ghiblikey=h2R6f8Gp#QxYsJt
+
+  db:
+    image: postgres:13
+    networks:
+      - proxynet
+    environment:
+      - POSTGRES_DB=default
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=XyPq9#zW5tRv3uK
+    ports:
+    - '0.0.0.0:5432:5432'
+    volumes:
+    - postgres_vol1:/var/lib/postgresql/data
+
+
+volumes:
+  postgres_vol1:
+    driver: local
+
+networks:
+  proxynet:
+    name: ghibli-project-local
+    driver: bridge
